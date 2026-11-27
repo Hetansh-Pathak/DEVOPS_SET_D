@@ -1,8 +1,8 @@
 # Task 3 - GitHub Actions evidence (real runs, copied from `gh run view` output)
-# Repository: https://github.com/Hetansh-Pathak/campus-library-devops-assessment
+# Repository: https://github.com/Hetansh-Pathak/DEVOPS_SET_D
 
 ## A. Healthy pipeline - branch feature/devops-assessment, run 45978577867
-## https://github.com/Hetansh-Pathak/campus-library-devops-assessment/actions/runs/45978577867
+## https://github.com/Hetansh-Pathak/DEVOPS_SET_D/actions/runs/45978577867
 
 ✓ feature/devops-assessment CI · 45978577867
 JOBS
@@ -15,7 +15,7 @@ Commit-derived tag taken from the Docker build job log:
 (5294d4a... is the commit SHA that was pushed; nothing is pushed to a registry.)
 
 ## B. Failing test blocks the Docker build - branch demo/failing-test, run 45978589020
-## https://github.com/Hetansh-Pathak/campus-library-devops-assessment/actions/runs/45978589020
+## https://github.com/Hetansh-Pathak/DEVOPS_SET_D/actions/runs/45978589020
 ## The branch changes ONE assertion so it is deliberately wrong:
 -        self.assertEqual(route('/unknown')[0], 404)
 +        self.assertEqual(route('/unknown')[0], 200)  # DEMO: deliberately wrong
