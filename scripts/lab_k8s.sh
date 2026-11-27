@@ -27,8 +27,8 @@ run docker tag campus-library:1.0.0 campus-library:1.0.1
 run kind load docker-image campus-library:1.0.0 campus-library:1.0.1 --name "$KIND_CLUSTER"
 
 echo; echo "## 2. Static validation against the API server, then deploy"
-run kubectl apply --dry-run=server -f k8s/
 run kubectl apply -f k8s/namespace.yaml
+run kubectl apply --dry-run=server -f k8s/configmap.yaml -f k8s/deployment.yaml -f k8s/service.yaml
 run kubectl apply -f k8s/configmap.yaml -f k8s/deployment.yaml -f k8s/service.yaml
 run kubectl -n "$NS" rollout status deployment/library-api --timeout=120s
 run kubectl -n "$NS" get deploy,pods,svc -o wide

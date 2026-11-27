@@ -3,6 +3,7 @@
 # Requires: terraform, docker with compose plugin, curl. Run from anywhere.
 set -uo pipefail
 cd "$(dirname "$0")/.."
+export TF_CLI_ARGS="-no-color"   # keep transcripts free of ANSI colour codes
 
 run() { echo; echo "\$ $*"; "$@" 2>&1; echo "exit=$?"; }
 show() { echo; echo "\$ curl -si $1 | head -1; curl -s $1"; curl -si "$1" | head -1; curl -s "$1"; echo; }
