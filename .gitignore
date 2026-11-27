@@ -8,3 +8,6 @@ __pycache__/
 generated/service.env
 evidence/*.log
 .DS_Store
+*.tfvars
+!*.tfvars.example
+tfplan

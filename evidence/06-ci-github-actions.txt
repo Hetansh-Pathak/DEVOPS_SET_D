@@ -1,0 +1,36 @@
+# Task 3 - GitHub Actions evidence (real runs, copied from `gh run view` output)
+# Repository: https://github.com/Hetansh-Pathak/campus-library-devops-assessment
+
+## A. Healthy pipeline - branch feature/devops-assessment, run 45978577867
+## https://github.com/Hetansh-Pathak/campus-library-devops-assessment/actions/runs/45978577867
+
+✓ feature/devops-assessment CI · 45978577867
+JOBS
+✓ Syntax check and unit tests in 6s
+✓ Docker build in 16s
+
+Commit-derived tag taken from the Docker build job log:
+  IMAGE_TAG: campus-library:5294d4af9bde6a51b1b1a5312203d2e4e43b9cbd
+  #10 naming to docker.io/library/campus-library:5294d4af9bde6a51b1b1a5312203d2e4e43b9cbd done
+(5294d4a... is the commit SHA that was pushed; nothing is pushed to a registry.)
+
+## B. Failing test blocks the Docker build - branch demo/failing-test, run 45978589020
+## https://github.com/Hetansh-Pathak/campus-library-devops-assessment/actions/runs/45978589020
+## The branch changes ONE assertion so it is deliberately wrong:
+-        self.assertEqual(route('/unknown')[0], 404)
++        self.assertEqual(route('/unknown')[0], 200)  # DEMO: deliberately wrong
+
+X demo/failing-test CI · 45978589020
+JOBS
+X Syntax check and unit tests in 5s
+  ✓ Python syntax check
+  X Unit tests
+- Docker build            <- "-" = skipped: `needs: test` was not satisfied
+
+Failing step log:
+  test_other_url (test_server.ApiTests.test_other_url) ... FAIL
+  AssertionError: 404 != 200
+  Ran 7 tests in 0.001s
+  FAILED (failures=1)
+
+The demo branch is NOT merged; it exists only to prove the gate works.
