@@ -1,0 +1,43 @@
+name: Lab evidence (manual)
+
+# Runs the Docker Compose and kind (Kubernetes) labs on a GitHub-hosted runner and
+# uploads the raw transcripts as an artifact. Manual trigger only.
+on:
+  workflow_dispatch:
+  push:
+    branches: ["lab/**"]   # push a throwaway lab/<name> branch to run it before it is on main
+
+permissions:
+  contents: read
+
+jobs:
+  lab:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: hashicorp/setup-terraform@v3
+
+      - name: Docker Compose lab
+        run: |
+          mkdir -p lab-out
+          bash scripts/lab_docker.sh 2>&1 | tee lab-out/04-docker-compose.txt
+
+      - name: Create kind cluster
+        uses: helm/kind-action@v1
+        with:
+          cluster_name: campus-lab
+
+      - name: Kubernetes rollout lab
+        env:
+          KIND_CLUSTER: campus-lab
+        run: bash scripts/lab_k8s.sh 2>&1 | tee lab-out/05-kubernetes-rollout.txt
+
+      - name: Upload transcripts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lab-evidence
+          path: lab-out/

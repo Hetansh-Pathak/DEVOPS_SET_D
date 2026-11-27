@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: library-api
+  namespace: devops-assessment
+  labels:
+    app: library-api
+spec:
+  type: ClusterIP
+  selector:
+    app: library-api
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080

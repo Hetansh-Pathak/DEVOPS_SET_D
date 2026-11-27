@@ -1,0 +1,32 @@
+# Task 1 - Linux log analysis (executed on this machine with Git Bash)
+
+$ wc -l < logs/access.log
+24
+$ awk '$2 ~ /^4/' logs/access.log | wc -l   # HTTP 4xx
+4
+$ awk '$2 ~ /^5/' logs/access.log | wc -l   # HTTP 5xx
+2
+$ awk '{print $4}' logs/access.log | sort | uniq -c | sort -rn | head -3
+      8 /healthz
+      6 /api/books?code=BK-101
+      5 /readyz
+
+$ bash scripts/analyze_logs.sh logs/access.log
+Log file        : logs/access.log
+Total requests  : 24
+HTTP 4xx        : 4
+HTTP 5xx        : 2
+HTTP 5xx rate   : 8.33%
+Top 3 routes    :
+  8 requests  /healthz
+  6 requests  /api/books?code=BK-101
+  5 requests  /readyz
+exit=0
+
+$ bash scripts/analyze_logs.sh logs/does-not-exist.log
+ERROR: log file not found or not readable: logs/does-not-exist.log
+exit=1
+
+$ bash scripts/analyze_logs.sh   # no argument
+Usage: scripts/analyze_logs.sh <path-to-access.log>
+exit=2
