@@ -1,5 +1,5 @@
 # SOURCE: real run on a GitHub-hosted ubuntu-latest runner (workflow 'Lab evidence', run 45978582623).
-# https://github.com/Hetansh-Pathak/campus-library-devops-assessment/actions/runs/45978582623
+# https://github.com/Hetansh-Pathak/DEVOPS_SET_D/actions/runs/45978582623
 # Docker / kind were NOT available on the candidate's Windows PC, so this lab was executed in CI.
 # Raw transcript; only ANSI colour codes and BuildKit progress lines were removed.
 
