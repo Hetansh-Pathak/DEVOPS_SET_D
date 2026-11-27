@@ -18,7 +18,7 @@ class ApiTests(unittest.TestCase):
     def test_unknown_item(self):
         self.assertEqual(route('/api/books?code=NOT_FOUND')[0], 404)
     def test_other_url(self):
-        self.assertEqual(route('/unknown')[0], 404)
+        self.assertEqual(route('/unknown')[0], 200)  # DEMO: deliberately wrong
 
 if __name__ == '__main__':
     unittest.main()
