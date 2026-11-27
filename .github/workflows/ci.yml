@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+# Least privilege: jobs can only read repository contents.
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Syntax check and unit tests
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Python syntax check
+        run: python -m compileall -q app tests
+
+      - name: Unit tests
+        run: python -m unittest discover -s tests -v
+
+  docker-build:
+    name: Docker build
+    # Runs only if every step of the test job succeeded.
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      IMAGE_TAG: campus-library:${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build image (commit-derived tag, no push)
+        run: docker build --tag "$IMAGE_TAG" .
+
+      - name: Smoke test container
+        run: |
+          docker run -d --name smoke -p 8080:8080 "$IMAGE_TAG"
+          for i in $(seq 1 15); do
+            curl -fsS http://127.0.0.1:8080/healthz && break || sleep 1
+          done
+          curl -fsS http://127.0.0.1:8080/readyz
+          curl -fsS "http://127.0.0.1:8080/api/books?code=BK-101"
+          docker exec smoke id -u | grep -vx 0
+          docker rm -f smoke
