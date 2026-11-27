@@ -10,6 +10,11 @@ it has a CI pipeline, and there's a rehearsed incident with a rollback.
 > The application (`app/`) and its unit tests (`tests/`) came with the starter kit and are **unchanged**.
 > Everything else in this repo is my work.
 
+### 👉 Reviewers, start here: **[Project walkthrough](docs/PROJECT_WALKTHROUGH.md)**
+It explains every task, each design decision and its reasoning, the incident and its recovery, and how to verify
+each claim in 5 minutes without installing anything. Operations detail (alerting, security, runbook) is in
+[docs/OPERATIONS.md](docs/OPERATIONS.md).
+
 ---
 
 ## Results at a glance
