@@ -1,0 +1,19 @@
+# Task 3 (local part) + app checks - executed locally with Python 3.12 on Windows
+
+$ python -m compileall -q app tests
+exit=0
+
+$ python -m unittest discover -s tests -v
+test_healthz (test_server.ApiTests.test_healthz) ... ok
+test_info (test_server.ApiTests.test_info) ... ok
+test_known_item (test_server.ApiTests.test_known_item) ... ok
+test_other_url (test_server.ApiTests.test_other_url) ... ok
+test_readyz_failure_mode (test_server.ApiTests.test_readyz_failure_mode) ... ok
+test_readyz_normal (test_server.ApiTests.test_readyz_normal) ... ok
+test_unknown_item (test_server.ApiTests.test_unknown_item) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.000s
+
+OK
+exit=0
